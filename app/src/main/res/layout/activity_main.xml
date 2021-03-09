@@ -110,6 +110,25 @@
             app:layout_constraintStart_toEndOf="@id/endline"
             app:layout_constraintTop_toBottomOf="@id/result" />
 
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintStart_toEndOf="@id/editpercent"
+            app:layout_constraintTop_toTopOf="@id/editpercent" />
+
+        <ImageView
+            android:id="@+id/minus"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintStart_toEndOf="@id/editpercent"
+            app:layout_constraintTop_toBottomOf="@+id/plus" />
+
         <View
             android:id="@+id/line"
             android:layout_width="match_parent"
@@ -127,9 +146,10 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="160dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
