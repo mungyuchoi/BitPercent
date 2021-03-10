@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="price">가격</string>
+    <string name="percent">퍼센트 (%)</string>
+    <string name="result">결과</string>
+    <string name="save">저장</string>
+    <string name="review">리뷰남기기</string>
+    <string name="exit">종료</string>
+
+    <string name="invalid_price_percent">가격 혹은 퍼센트가 잘못 되었습니다.</string>
+</resources>

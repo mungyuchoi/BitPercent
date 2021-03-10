@@ -1,15 +1,27 @@
 package com.moon.bitpercent
 
+import android.app.Dialog
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.Window
+import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.formats.NativeAdOptions
+import com.google.android.gms.ads.formats.UnifiedNativeAd
 import com.moon.bitpercent.databinding.ActivityMainBinding
 import com.moon.bitpercent.room.BitDao
 import com.moon.bitpercent.room.BitDatabase
@@ -26,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private var isPlus = true
     private val bitAdapter = BitAdapter(arrayListOf())
+    private var exitDialog: Dialog? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -141,7 +154,38 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+
+        MobileAds.initialize(this)
+
+        binding.adView.loadAd(AdRequest.Builder().build())
+        exitDialog = Dialog(this).apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setContentView(R.layout.exit_dialog)
+        }
+        exitDialog?.findViewById<Button>(R.id.review)?.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
+        }
+        exitDialog?.findViewById<Button>(R.id.exit)?.setOnClickListener {
+            finish()
+        }
+        //Test
+//        val adLoader = AdLoader.Builder(this, "ca-app-pub-3940256099942544/2247696110")
+        val adLoader = AdLoader.Builder(this, "ca-app-pub-8549606613390169/9913918777")
+            .forUnifiedNativeAd { ad: UnifiedNativeAd ->
+                exitDialog?.findViewById<TemplateView>(R.id.template)?.setNativeAd(ad)
+            }
+            .withAdListener(object : AdListener() {
+            })
+            .withNativeAdOptions(NativeAdOptions.Builder().build())
+            .build()
+        adLoader.loadAd(AdRequest.Builder().build())
+
     }
+
+    override fun onBackPressed() {
+        exitDialog?.show()
+    }
+
 
     companion object {
         val TAG = "BitPercent"

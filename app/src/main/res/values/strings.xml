@@ -1,10 +1,12 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">BitPercent</string>
 
     <string name="price">price</string>
     <string name="percent">percent (%)</string>
     <string name="result">result</string>
     <string name="save">save</string>
+    <string name="review">review</string>
+    <string name="exit">exit</string>
 
     <string name="invalid_price_percent">Invalid Price or Percent</string>
 </resources>
