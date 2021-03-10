@@ -4,4 +4,5 @@
     <string name="price">price</string>
     <string name="percent">percent (%)</string>
     <string name="result">result</string>
+    <string name="save">save</string>
 </resources>

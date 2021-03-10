@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import java.math.BigDecimal
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
+    private var isPlus = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,13 @@ class MainActivity : AppCompatActivity() {
                 var percentDecimal = BigDecimal.valueOf(percent.value!!)
                 percentDecimal = percentDecimal.divide(BigDecimal.TEN)
                 percentDecimal = percentDecimal.divide(BigDecimal.TEN)
-                percentDecimal = percentDecimal.plus(BigDecimal.ONE)
+
+                percentDecimal = if (isPlus) {
+                    percentDecimal.plus(BigDecimal.ONE)
+                } else {
+                    BigDecimal.ONE.minus(percentDecimal)
+                }
+                Log.i(TAG, "isPlus:$isPlus percentDecimal:$percentDecimal")
                 binding.editresult.setText((priceDecimal.multiply(percentDecimal)).toString())
             })
 
@@ -46,7 +54,14 @@ class MainActivity : AppCompatActivity() {
                 var percentDecimal = BigDecimal.valueOf(percent)
                 percentDecimal = percentDecimal.divide(BigDecimal.TEN)
                 percentDecimal = percentDecimal.divide(BigDecimal.TEN)
-                percentDecimal = percentDecimal.plus(BigDecimal.ONE)
+
+                percentDecimal = if (isPlus) {
+                    percentDecimal.plus(BigDecimal.ONE)
+                } else {
+                    BigDecimal.ONE.minus(percentDecimal)
+
+                }
+                Log.i(TAG, "isPlus:$isPlus percentDecimal:$percentDecimal")
                 binding.editresult.setText((priceDecimal.multiply(percentDecimal)).toString())
             })
         }
@@ -56,7 +71,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.price.postValue(binding.editprice.text.toString().toDouble())
+                binding.editprice.text?.toString()?.run {
+                    if (this.isNotEmpty()) {
+                        viewModel.price.postValue(this.toDouble())
+                    }
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
@@ -68,19 +87,30 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                viewModel.percent.postValue(binding.editpercent.text.toString().toDouble())
+                binding.editpercent.text?.toString()?.run {
+                    if (this.isNotEmpty()) {
+                        viewModel.percent.postValue(this.toDouble())
+                    }
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+
+        binding.radioGroup.setOnCheckedChangeListener { _, id ->
+            isPlus = R.id.plus == id
+            viewModel.percent.postValue(viewModel.percent.value)
+        }
     }
 
+    companion object {
+        val TAG = "BitPercent"
+    }
 
 }
 
 class MainViewModel : ViewModel() {
     var price = MutableLiveData<Double>()
     var percent = MutableLiveData<Double>()
-
 }

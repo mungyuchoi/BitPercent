@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="190dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -110,24 +110,55 @@
             app:layout_constraintStart_toEndOf="@id/endline"
             app:layout_constraintTop_toBottomOf="@id/result" />
 
-        <ImageView
-            android:id="@+id/plus"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/ic_plus"
-            app:layout_constraintStart_toEndOf="@id/editpercent"
-            app:layout_constraintTop_toTopOf="@id/editpercent" />
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toStartOf="@id/endline"
+            app:layout_constraintStart_toEndOf="@id/startline"
+            app:layout_constraintTop_toBottomOf="@id/editpercent">
 
-        <ImageView
-            android:id="@+id/minus"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/ic_minus"
-            app:layout_constraintStart_toEndOf="@id/editpercent"
-            app:layout_constraintTop_toBottomOf="@+id/plus" />
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/plus"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:drawableEnd="@drawable/ic_plus"
+                android:drawablePadding="50dp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/minus"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/ic_minus"
+                android:drawablePadding="50dp" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/type"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="BitCoin"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/startline"
+            app:layout_constraintStart_toStartOf="@id/startline" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endline"
+            app:layout_constraintStart_toStartOf="@id/endline" />
 
         <View
             android:id="@+id/line"
@@ -146,7 +177,7 @@
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="2000dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
