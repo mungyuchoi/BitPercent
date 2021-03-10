@@ -5,9 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.moon.bitpercent.data.Bit
+import com.moon.bitpercent.room.BitEntity
+import java.util.*
 
-class BitAdapter(val items: ArrayList<Bit>?) : RecyclerView.Adapter<BitAdapter.ViewHolder>() {
+class BitAdapter(val items: List<BitEntity>?) : RecyclerView.Adapter<BitAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_info, parent, false)
@@ -28,6 +29,14 @@ class BitAdapter(val items: ArrayList<Bit>?) : RecyclerView.Adapter<BitAdapter.V
 
     override fun getItemCount(): Int {
         return items?.size ?: 0
+    }
+
+    fun setItems(list: List<BitEntity>) {
+        (items as ArrayList).run {
+            clear()
+            addAll(list)
+        }
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

@@ -29,4 +29,5 @@ ext {
     materialVersion = '1.2.1'
     liveDataVersion = '2.2.0'
     recyclerViewVersion = '1.2.0-alpha06'
+    roomVersion ="2.2.5"
 }
