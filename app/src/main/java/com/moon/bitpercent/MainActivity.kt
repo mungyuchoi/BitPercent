@@ -1,14 +1,17 @@
 package com.moon.bitpercent
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.moon.bitpercent.data.Bit
 import com.moon.bitpercent.databinding.ActivityMainBinding
 import java.math.BigDecimal
 
@@ -17,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
     private var isPlus = true
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -101,6 +105,16 @@ class MainActivity : AppCompatActivity() {
         binding.radioGroup.setOnCheckedChangeListener { _, id ->
             isPlus = R.id.plus == id
             viewModel.percent.postValue(viewModel.percent.value)
+        }
+
+        binding.recyclerview.run {
+            adapter = BitAdapter(null)
+//            val list = ArrayList<Bit>()
+//            list.add(Bit(100.0, 3.0, 103.0, "BitCoin", null))
+//            list.add(Bit(100.0, 3.0, 103.0, "BitCoin", null))
+//            list.add(Bit(100.0, 3.0, 103.0, "BitCoin", null))
+//            list.add(Bit(100.0, 3.0, 103.0, "BitCoin", null))
+//            adapter = BitAdapter(list)
         }
     }
 
